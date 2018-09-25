@@ -8,7 +8,7 @@ const http = require("http");
 const app = express();
 
 const db = require('./../db/config');  
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000 || port;
 
 app.use(bodyParser.json());   // Parse text as JSON, expose result object on req.body
 app.use(express.static(path.join(__dirname, '../public/')));   // Serve up static files 
