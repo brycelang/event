@@ -14,10 +14,10 @@ app.use(bodyParser.json());   // Parse text as JSON, expose result object on req
 app.use(express.static(path.join(__dirname, '../public/')));   // Serve up static files 
 
 //connects to mysql database
-db.dbConnection.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
-});
+// db.dbConnection.connect(function(err) {
+//   if (err) throw err;
+//   console.log("Connected!");
+// });
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
