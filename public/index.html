@@ -135,13 +135,15 @@
         // Logged into your app and Facebook.
         testAPI();
         console.log("test" + response.authResponse.userID);
+        var userID = response.authResponse.userID;
+        var name = response.name;
       } else {
         // The person is not logged into your app or we are unable to tell.
         document.getElementById('status').innerHTML = 'Please log ' +
           'into this app.';
       }
     }
-
+console.log(name);
     // This function is called when someone finishes with the Login
     // Button.  See the onlogin handler attached to it in the sample
     // code below.
@@ -174,6 +176,7 @@
 
       FB.getLoginStatus(function (response) {
         statusChangeCallback(response);
+
       });
 
     };
@@ -184,18 +187,12 @@
       console.log('Welcome!  Fetching your information.... ');
       FB.api('/me', function (response) {
         console.log('Successful login for: ' + response.name);
-        console.log("test" + response.Object.authResponse.userID);
+
         document.getElementById('status').innerHTML =
           'Thanks for logging in, ' + response.name + '!';
       });
     }
-    /* make the API call */
-    FB.api("/{user-id}", function (response) {
-      if (response && !response.error) {
-        /* handle the result and save it to your sql database*/
-       
-      }
-    });
+   
   </script>
 
   <!--
