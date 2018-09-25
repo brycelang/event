@@ -4,14 +4,15 @@
   "description": "Project description",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server/server",
-    "build": "webpack --watch"
+    "start": "concurrently \"nodemon server/server\" \" webpack --watch\"",
+    "build": "concurrently \"nodemon server/server\" \" webpack --watch\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "concurrently": "^4.0.1",
     "dotenv": "^4.0.0",
     "express": "^4.16.3",
     "mysql": "^2.16.0",
