@@ -128,7 +128,7 @@ api = client.get("https://api.songkick.com/api/3.0/metro_areas/3733/calendar.jso
 
         db.dbConnection.query("SELECT * FROM events", function (err, result, fields) {
           if (err) throw err;
-          console.log(result);
+          // console.log(result);
         });
 
 });
