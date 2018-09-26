@@ -7,3 +7,4 @@ exports.dbConnection = mysql.createConnection({
   password: process.env.DB_PASSWORD,
   database: "event_db"
 });
+

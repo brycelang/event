@@ -81,6 +81,7 @@ api = client.get("https://api.songkick.com/api/3.0/metro_areas/3733/calendar.jso
   /****
    *Saving data and Setting variables
    *****/
+  // i is the index of the array static for now for testing purposes
   var i = 3;
   // conditionals
     var type = results.event[i].type;
@@ -111,9 +112,9 @@ api = client.get("https://api.songkick.com/api/3.0/metro_areas/3733/calendar.jso
     ageRestricted = event.ageRestriction;
 
 // BUILD AN ARRAY TO HOLD EVENT DATA FOR OUT DATABASE
-    var values = [];
+    values = [];
     values.push(id, isActive, ageRestricted,  name);
-    console.log(values);
+    // console.log(values);
     /********
      * 
      * SCRIPT FOR INSERTING THE EVENT ARRAY INTO OUR DB
@@ -124,29 +125,34 @@ api = client.get("https://api.songkick.com/api/3.0/metro_areas/3733/calendar.jso
       //   if (err) throw err;
       //   console.log("Number of records inserted: " + result.affectedRows);
       // });
+
+        db.dbConnection.query("SELECT * FROM events", function (err, result, fields) {
+          if (err) throw err;
+          console.log(result);
+        });
+
 });
     /*******
      * loop through the performance array to grab each artist name for the event
      */
     performance.forEach(function (artist) {
-      var list = artist.displayName;
-      //console.log(list);
-      var text=[];
-      text.push(artist.displayName);
-      console.log("artists: " + text);
+      artistName = artist.displayName;
+      values = [];
+      values.push(artistName);
+      console.log("artists: " + values);
   });
 
-  if (ageRestriction != null ){   console.log("Age Restriction: " + ageRestriction);    }
- console.log("Type: " + type);
-  if (isActive != null ){    console.log("Is Active: " + isActive);  }
- console.log("Display Name:" + displayName);
-  if (time != null ){    console.log("Time: " + time);  }
-   console.log("Date: " + date);
- console.log("Venue Name: " + venueName);
- console.log("Venue Location: " + venueLocation);
- console.log("Venue Id: " + venueId);
- console.log("Venue Link: " + venueUri);
- console.log("Event Link:" + uri);
+//   if (ageRestriction != null ){   console.log("Age Restriction: " + ageRestriction);    }
+//  console.log("Type: " + type);
+//   if (isActive != null ){    console.log("Is Active: " + isActive);  }
+//  console.log("Display Name:" + displayName);
+//   if (time != null ){    console.log("Time: " + time);  }
+//    console.log("Date: " + date);
+//  console.log("Venue Name: " + venueName);
+//  console.log("Venue Location: " + venueLocation);
+//  console.log("Venue Id: " + venueId);
+//  console.log("Venue Link: " + venueUri);
+//  console.log("Event Link:" + uri);
 //console.log(uri); 
 
     // parsed response body as js object

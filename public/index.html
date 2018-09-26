@@ -12,7 +12,7 @@
     crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
-
+<link rel="stylesheet" href="assets/styles/styles.css">
 
   <!--bootstrap JS, Popper.js, and jQuery-->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -45,12 +45,16 @@
   <br>
   <div class="row content">
     <div class=" col-md-3">
-      <div class="jumbotron" style="width: 300px;">
+      <div class="jumbotron" style="width: 350px;">
         <h1 style="text-align: center;">Artist Info</h1>
+
+      </div>
+      <div class="container">
+        <div class="fb-comments" data-href="https://ovent.herokuapp.com/" data-width="300px" width=""data-numposts="5"></div>
       </div>
     </div>
     <div class="col-md-6">
-      <div class="jumbotron">
+      <div class="jumbotron" style="width: auto;">
         <h1 style="text-align: center;">Concerts Near You</h1>
         okay this is a test to seee what happens im gonna keep trying let me know if i break anything hot reload test
         123 test okay
@@ -112,10 +116,9 @@
       </div>
     </div>
     <div class="col-md-3">
-      <div class="jumbotron" style="width: 300px;">
+      <div class="jumbotron" style="width: 350px;">
         <h1 style="text-align: center;">Feed</h1>
-
-      </div>
+        </div>
     </div>
     <div class="row">
       <div class="col-xs-12"></div>
@@ -139,7 +142,7 @@
       js.src =
         'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.1&appId=267084637230022&autoLogAppEvents=1';
       fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
+    }(document, 'script', 'facebook-jssdk'));   
   </script>
 
 
