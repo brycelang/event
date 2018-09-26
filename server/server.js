@@ -12,19 +12,24 @@ const signale = require("signale");
 
 const db = require('./../db/config');
 const PORT = process.env.PORT || 3000 || port;
-
+const DB_NAME = process.env.DB_NAME;
 app.use(bodyParser.json()); // Parse text as JSON, expose result object on req.body
 app.use(express.static(path.join(__dirname, '../public/'))); // Serve up static files 
 
-//connects to mysql database
-// db.dbConnection.connect(function(err) {
-//   if (err) throw err;
-//   console.log("Connected!");
-// });
+// connects to mysql database
+db.dbConnection.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected! to mysql");
+
+});
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
+
+/**
+ * FUNCTION TO TURN OBJECTS INTO MAPS
+ */
 var Client = require('node-rest-client').Client;
  
 var client = new Client();
@@ -33,6 +38,8 @@ const xah_obj_to_map = ( obj => {
   Object.keys ( obj ). forEach (k => { mp.set(k, obj[k]) });
   return mp;
 });
+
+
 /************************
  * NEED TO LOOP THROUGH THE EVENT OBJECT PULLING *
  * ALL LISTED EVENTS AND DISPAY A LIST OF THEM ON THE INDEX
@@ -41,6 +48,9 @@ const xah_obj_to_map = ( obj => {
 // direct way
 api = client.get("https://api.songkick.com/api/3.0/metro_areas/3733/calendar.json?apikey=6ZqAuOfV3FcTqwAU", function (data, response) {
   var results = data.resultsPage.results;
+  /**
+   *TURNS JSON OBJECT INTO A MAP
+   */
   var listmap = (xah_obj_to_map ( results ) );
   // console.log (listmap);
 
@@ -71,35 +81,73 @@ api = client.get("https://api.songkick.com/api/3.0/metro_areas/3733/calendar.jso
   /****
    *Saving data and Setting variables
    *****/
-  var i = 2;
+  var i = 3;
+  // conditionals
+    var type = results.event[i].type;
+    var isActive = results.event[i].flaggedAsEnded;
+    var ageRestriction = results.event[i].ageRestriction;
+
+// dynamic info for venues/concerts
     var displayName = results.event[i].displayName;
-    var venueName = results.event[i].venue.metroArea.displayName;
-    var uri = results.event[1].uri;
-    var isActive = results.event[1].flaggedAsEnded;
-    var type = results.event[1].type;
-    var time =  results.event[1].start.time;
-    var date = results.event[1].start.date;
-    var ageRestriction = results.event[1].ageRestriction;
-    var performance = results.event[2].performance;
+    var venueName = results.event[i].venue.displayName;
+    var venueId = results.event[i].venue.id;
+    var venueLocation = results.event[i].venue.metroArea.displayName;
+    var venueUri = results.event[i].venue.uri;
 
 
-    signale.note(displayName);
-    signale.note(venueName);
-    signale.note(type);
-    signale.note(isActive);
-    signale.note(time);
-    signale.note(date);
-    if (ageRestriction != null ){    signale.note(ageRestriction);    }
-    signale.note(uri);
-    // signale.note(uri);
+    var uri = results.event[i].uri;
+    var time =  results.event[i].start.time;
+    var date = results.event[i].start.date;
+    var performance = results.event[i].performance;
+    var event = results.event;
 
+
+
+  // pulls all event data from the SongKick API
+  event.forEach(function (event) {
+    name = event.displayName;
+    id = event.id;
+    isActive = event.flaggedAsEnded;
+    ageRestricted = event.ageRestriction;
+
+// BUILD AN ARRAY TO HOLD EVENT DATA FOR OUT DATABASE
+    var values = [];
+    values.push(id, isActive, ageRestricted,  name);
+    console.log(values);
+    /********
+     * 
+     * SCRIPT FOR INSERTING THE EVENT ARRAY INTO OUR DB
+     */
+      // var sql = "INSERT INTO events (id, isActive, ageRestricted, name) VALUES (?)";
+    
+      // db.dbConnection.query(sql, [values], function (err, result) {
+      //   if (err) throw err;
+      //   console.log("Number of records inserted: " + result.affectedRows);
+      // });
+});
     /*******
      * loop through the performance array to grab each artist name for the event
      */
     performance.forEach(function (artist) {
       var list = artist.displayName;
-      signale.note(list);
+      //console.log(list);
+      var text=[];
+      text.push(artist.displayName);
+      console.log("artists: " + text);
   });
+
+  if (ageRestriction != null ){   console.log("Age Restriction: " + ageRestriction);    }
+ console.log("Type: " + type);
+  if (isActive != null ){    console.log("Is Active: " + isActive);  }
+ console.log("Display Name:" + displayName);
+  if (time != null ){    console.log("Time: " + time);  }
+   console.log("Date: " + date);
+ console.log("Venue Name: " + venueName);
+ console.log("Venue Location: " + venueLocation);
+ console.log("Venue Id: " + venueId);
+ console.log("Venue Link: " + venueUri);
+ console.log("Event Link:" + uri);
+//console.log(uri); 
 
     // parsed response body as js object
     // console.log(data);
@@ -108,9 +156,3 @@ api = client.get("https://api.songkick.com/api/3.0/metro_areas/3733/calendar.jso
 });
  
 
-  
-//   // Object.keys(resp.resultsPage.results.event).map(e => {
-//   //   console.log(`key= ${e} value = ${resp.resultsPage.results.event[e]}`);
-//   //   // var objectEntries = entries(experienceObject);
-//   //   // console.log("objectEntries:", objectEntries);
-//   // });
