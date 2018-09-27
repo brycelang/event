@@ -12,6 +12,7 @@
         console.log("test" + response.authResponse.userID);
         const userID = response.authResponse.userID;
         const name = response.name;
+        console.log(userID);
       } else {
         // The person is not logged into your app or we are unable to tell.
         document.getElementById('status').innerHTML = 'Please log ' +

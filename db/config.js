@@ -2,9 +2,9 @@ const mysql = require('mysql');
 var db = "event_db";
 
 exports.dbConnection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: process.env.DB_PASSWORD,
+  host: "events.crkn8bslxfrr.us-east-1.rds.amazonaws.com",
+  user: "brycelang",
+  password: "Brycelogan99",
   database: "event_db"
 });
 
