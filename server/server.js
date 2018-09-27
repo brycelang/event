@@ -17,11 +17,16 @@ app.use(bodyParser.json()); // Parse text as JSON, expose result object on req.b
 app.use(express.static(path.join(__dirname, '../public/'))); // Serve up static files 
 
 // connects to mysql database
-// db.dbConnection.connect(function(err) {
-//   if (err) throw err;
-//   console.log("Connected! to mysql");
+db.dbConnection.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected! to mysql");
+});
+db.dbConnection.query('SELECT name FROM events' , (err, rows) => {
+  if(err) throw err;
 
-// });
+  console.log('Data received from Db:\n');
+  console.log(rows);
+});
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);

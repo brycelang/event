@@ -13,7 +13,7 @@
     crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
-<link rel="stylesheet" href="assets/styles/styles.css">
+  <link rel="stylesheet" href="assets/styles/styles.css">
 
   <!--bootstrap JS, Popper.js, and jQuery-->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -22,15 +22,17 @@
     crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
     crossorigin="anonymous"></script>
-    
+    <link rel="text/css" type="text/css" href="https://raw.githubusercontent.com/joaopereirawd/fakeLoader.js/master/fakeLoader.css">
 
-<!-- HTTPS required. HTTP will give a 403 forbidden response -->
-<script src="https://sdk.accountkit.com/en_US/sdk.js"></script>
+
+  <!-- HTTPS required. HTTP will give a 403 forbidden response -->
+  <script src="https://sdk.accountkit.com/en_US/sdk.js"></script>
 
 
 </head>
 
 <body>
+    <div id="fakeLoader"></div>
   <nav class="navbar navbar-dark bg-dark">
     <a class="navbar-brand" href="#">Navbar</a>
     <a class="navbar-item" href="#">
@@ -56,9 +58,7 @@
         <h1 style="text-align: center;">Artist Info</h1>
 
       </div>
-      <div class="container">
-        <div class="fb-comments" data-href="https://ovent.herokuapp.com/" data-width="300px" width=""data-numposts="5"></div>
-      </div>
+
     </div>
     <div class="col-md-6">
       <div class="jumbotron" style="width: auto;">
@@ -69,45 +69,13 @@
           <div class="row">
             <div class="col-md-8">
               <div class="container">
-                <table class="table">
+                <table class="table" id="tt">
                   <thead>
                     <tr>
                       <th>Firstname</th>
-                      <th>Lastname</th>
-                      <th>Email</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td>Default</td>
-                      <td>Defaultson</td>
-                      <td>def@somemail.com</td>
-                    </tr>
-                    <tr class="success">
-                      <td>Success</td>
-                      <td>Doe</td>
-                      <td>john@example.com</td>
-                    </tr>
-                    <tr class="danger">
-                      <td>Danger</td>
-                      <td>Moe</td>
-                      <td>mary@example.com</td>
-                    </tr>
-                    <tr class="info">
-                      <td>Info</td>
-                      <td>Dooley</td>
-                      <td>july@example.com</td>
-                    </tr>
-                    <tr class="warning">
-                      <td>Warning</td>
-                      <td>Refs</td>
-                      <td>bo@example.com</td>
-                    </tr>
-                    <tr class="active">
-                      <td>Active</td>
-                      <td>Activeson</td>
-                      <td>act@example.com</td>
-                    </tr>
+                  <tbody id="tt">
                   </tbody>
                 </table>
               </div>
@@ -125,13 +93,17 @@
     <div class="col-md-3">
       <div class="jumbotron" style="width: 350px;">
         <h1 style="text-align: center;">Feed</h1>
-        <input value="+1" id="country_code" />
+
+        <!-- <input value="+1" id="country_code" />
         <input placeholder="phone number" id="phone_number"/>
         <button onclick="smsLogin();">Login via SMS</button>
         <div>OR</div>
         <input placeholder="email" id="email"/>
-        <button onclick="emailLogin();">Login via Email</button>
-        </div>
+        <button onclick="emailLogin();">Login via Email</button> -->
+      </div>
+      <div class="container">
+        <div class="fb-comments" data-href="https://ovent.herokuapp.com/" data-width="300px" width="" data-numposts="5"></div>
+      </div>
     </div>
     <div class="row">
       <div class="col-xs-12"></div>
@@ -155,70 +127,26 @@
       js.src =
         'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.1&appId=267084637230022&autoLogAppEvents=1';
       fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));   
+    }(document, 'script', 'facebook-jssdk'));
   </script>
 
-
-<script>
-  // initialize Account Kit with CSRF protection
-  AccountKit_OnInteractive = function(){
-    AccountKit.init(
-      {
-        appId:"267084637230022", 
-        state:"test", 
-        version:"v1.0",
-        fbAppEventsEnabled:true,
-        redirect:"https://ovent.herokuapp.com/"
-      }
-    );
-  };
-
-  // login callback
-  function loginCallback(response) {
-    if (response.status === "PARTIALLY_AUTHENTICATED") {
-      var code = response.code;
-      var csrf = response.state;
-      // Send code to server to exchange for access token
-    }
-    else if (response.status === "NOT_AUTHENTICATED") {
-      // handle authentication failure
-    }
-    else if (response.status === "BAD_PARAMS") {
-      // handle bad parameters
-    }
-  }
-
-  // phone form submission handler
-  function smsLogin() {
-    var countryCode = document.getElementById("country_code").value;
-    var phoneNumber = document.getElementById("phone_number").value;
-    AccountKit.login(
-      'PHONE', 
-      {countryCode: countryCode, phoneNumber: phoneNumber}, // will use default values if not specified
-      loginCallback
-    );
-  }
-
-
-  // email form submission handler
-  function emailLogin() {
-    var emailAddress = document.getElementById("email").value;
-    AccountKit.login(
-      'EMAIL',
-      {emailAddress: emailAddress},
-      loginCallback
-    );
-  }
-</script>
-
-    
-
-  <div id="status">
-  </div>
+  <div id="test"></div>
+  <div id="status"></div>
   <script src="dist/bundle.js"></script>
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-    crossorigin="anonymous"></script>
-    <script src="assets/js/login.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="crossorigin="anonymous"></script>
+  <script src="assets/js/login.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="http://joaopereirawd.github.io/fakeLoader.js/js/fakeLoader.min.js"></script>
+  <script type="text/javascript">
+    $("#fakeLoader").fakeLoader({
+        timeToHide:1200, //Time in milliseconds for fakeLoader disappear
+        zIndex:999, // Default zIndex
+        spinner:"spinner1",//Options: 'spinner1', 'spinner2', 'spinner3', 'spinner4', 'spinner5', 'spinner6', 'spinner7' 
+        bgColor:"#2ecc71", //Hex, RGB or RGBA colors
+        imagePath:"yourPath/customizedImage.gif" //If you want can you insert your custom image
+        
+});
+</script>
 </body>
 
 </html>
