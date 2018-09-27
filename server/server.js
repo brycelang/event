@@ -75,13 +75,13 @@ api = client.get("https://api.songkick.com/api/3.0/metro_areas/3733/calendar.jso
   // objectKeys: [ 'id', 'displayName', 'billing', 'billingIndex', 'artist' ]
   /************** */
 
-  var objectKeys = Object.keys(results.event[1].performance[1]);
-  console.log("objectKeys:", objectKeys);
+  // var objectKeys = Object.keys(results.event[1].performance[1]);
+  // console.log("objectKeys:", objectKeys);
 
   /****
    *Saving data and Setting variables
    *****/
-  // i is the index of the array static for now for testing purposes
+  // i is the index of the array static
   var i = 3;
   // conditionals
     var type = results.event[i].type;
@@ -128,7 +128,7 @@ api = client.get("https://api.songkick.com/api/3.0/metro_areas/3733/calendar.jso
 
         // db.dbConnection.query("SELECT * FROM events", function (err, result, fields) {
         //   if (err) throw err;
-        //   // console.log(result);
+        //   console.log(result);
         // });
 
 });
