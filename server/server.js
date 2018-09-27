@@ -17,11 +17,11 @@ app.use(bodyParser.json()); // Parse text as JSON, expose result object on req.b
 app.use(express.static(path.join(__dirname, '../public/'))); // Serve up static files 
 
 // connects to mysql database
-db.dbConnection.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected! to mysql");
+// db.dbConnection.connect(function(err) {
+//   if (err) throw err;
+//   console.log("Connected! to mysql");
 
-});
+// });
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
@@ -126,10 +126,10 @@ api = client.get("https://api.songkick.com/api/3.0/metro_areas/3733/calendar.jso
       //   console.log("Number of records inserted: " + result.affectedRows);
       // });
 
-        db.dbConnection.query("SELECT * FROM events", function (err, result, fields) {
-          if (err) throw err;
-          // console.log(result);
-        });
+        // db.dbConnection.query("SELECT * FROM events", function (err, result, fields) {
+        //   if (err) throw err;
+        //   // console.log(result);
+        // });
 
 });
     /*******

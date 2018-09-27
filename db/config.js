@@ -5,6 +5,6 @@ exports.dbConnection = mysql.createConnection({
   host: "events.crkn8bslxfrr.us-east-1.rds.amazonaws.com",
   user: "brycelang",
   password: "Brycelogan99",
-  database: "event_db"
+  database: "events"
 });
 
