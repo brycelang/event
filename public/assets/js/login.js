@@ -211,17 +211,17 @@
     var dmJSON = "https://api.songkick.com/api/3.0/metro_areas/3733/calendar.json?apikey=6ZqAuOfV3FcTqwAU";
     $.getJSON(dmJSON, function (data) {
       var event = data.resultsPage.results.event;
-      console.log("lol" +  data.resultsPage.results.event[1].displayName);
+      // console.log("lol" +  data.resultsPage.results.event[1].displayName);
 
       event.forEach(function (event) {
         name = event.displayName;
         var tblRow = "<tr>" + "<td>" + name + "</td>" + "</tr>";
         $(tblRow).appendTo("#tt");
-        console.log(name);
+        // console.log(name);
       });
       $.each(data.resultsPage.results.event, function (i, f) {
         
-        console.log(f.name);
+        // console.log(f.name);
 
       });
 

@@ -144,7 +144,7 @@ api = client.get("https://api.songkick.com/api/3.0/metro_areas/3733/calendar.jso
       artistName = artist.displayName;
       values = [];
       values.push(artistName);
-      console.log("artists: " + values);
+      // console.log("artists: " + values);
   });
 
 //   if (ageRestriction != null ){   console.log("Age Restriction: " + ageRestriction);    }

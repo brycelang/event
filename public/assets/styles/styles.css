@@ -1,12 +1,45 @@
+/***
+*CSS Styling for most pages
+*
+*****/
+
 h1 {
   color: red;
 }
-html{
+
+html {
   width: 100%;
 }
-body{
+
+body {
   width: 100%;
   height: 100%;
-  overflow-y: scroll;
+  overflow-y: hidden;
   overflow-x: hidden;
+}
+#list{
+height: 175px;
+}
+#jumbo {
+  overflow-y: hidden;
+}
+/* table styling on hover */
+#hoverTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#hoverTable td {
+  padding: 7px;
+  border: #4e95f4 1px solid;
+}
+
+/* Define the default color for all the table rows */
+#hoverTable tr {
+  background: #b8d1f3;
+}
+
+/* Define the hover highlight color for the table row */
+#hoverTable tr:hover {
+  background-color: #ffff99;
 }
